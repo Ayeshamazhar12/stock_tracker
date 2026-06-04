@@ -44,7 +44,7 @@ def get_valid_stock_input():
         if stock in STOCK_PRICES:
             return stock
         else:
-            print(f"❌ '{stock}' not found. Available stocks: {', '.join(STOCK_PRICES.keys())}")
+            print(f" '{stock}' not found. Available stocks: {', '.join(STOCK_PRICES.keys())}")
 
 
 def get_valid_quantity_input():
@@ -53,11 +53,11 @@ def get_valid_quantity_input():
         try:
             quantity = float(input("Enter quantity: "))
             if quantity <= 0:
-                print("❌ Quantity must be greater than 0.")
+                print(" Quantity must be greater than 0.")
                 continue
             return quantity
         except ValueError:
-            print("❌ Invalid input. Please enter a valid number.")
+            print(" Invalid input. Please enter a valid number.")
 
 
 def build_portfolio():
@@ -81,10 +81,10 @@ def build_portfolio():
         # Add or update stock in portfolio
         if stock in portfolio:
             portfolio[stock] += quantity
-            print(f"✓ Updated {stock}: total quantity now = {portfolio[stock]}")
+            print(f" Updated {stock}: total quantity now = {portfolio[stock]}")
         else:
             portfolio[stock] = quantity
-            print(f"✓ Added {stock}: {quantity} shares")
+            print(f" Added {stock}: {quantity} shares")
     
     return portfolio
 
@@ -148,10 +148,10 @@ def save_to_txt(portfolio, total_value, breakdown, filename="portfolio.txt"):
             f.write(f"{'TOTAL INVESTMENT VALUE':<37} ${total_value:,.2f}\n")
             f.write("="*60 + "\n")
         
-        print(f"✓ Portfolio saved to '{filename}'")
+        print(f" Portfolio saved to '{filename}'")
         return True
     except IOError as e:
-        print(f"❌ Error saving file: {e}")
+        print(f" Error saving file: {e}")
         return False
 
 
@@ -183,17 +183,17 @@ def save_to_csv(portfolio, total_value, breakdown, filename="portfolio.csv"):
             writer.writerow([])
             writer.writerow(["Total Investment Value", f"${total_value:,.2f}"])
         
-        print(f"✓ Portfolio saved to '{filename}'")
+        print(f" Portfolio saved to '{filename}'")
         return True
     except IOError as e:
-        print(f"❌ Error saving file: {e}")
+        print(f" Error saving file: {e}")
         return False
 
 
 def save_portfolio_prompt(total_value, breakdown):
     """Prompt user to save portfolio and handle file format selection."""
     if not breakdown:
-        print("\n⚠ Portfolio is empty. Nothing to save.")
+        print("\n Portfolio is empty. Nothing to save.")
         return
     
     print("\n" + "="*50)
@@ -223,7 +223,7 @@ def main():
         portfolio = build_portfolio()
         
         if not portfolio:
-            print("\n⚠ No stocks added. Exiting.")
+            print("\n No stocks added. Exiting.")
             return
         
         # Calculate values
@@ -235,12 +235,12 @@ def main():
         # Ask to save
         save_portfolio_prompt(total_value, breakdown)
         
-        print("\n✓ Thank you for using Stock Portfolio Tracker!")
+        print("\n Thank you for using Stock Portfolio Tracker!")
         
     except KeyboardInterrupt:
         print("\n\n⚠ Program interrupted by user.")
     except Exception as e:
-        print(f"\n❌ An unexpected error occurred: {e}")
+        print(f"\n An unexpected error occurred: {e}")
 
 
 if __name__ == "__main__":
